@@ -1,0 +1,1 @@
+idlj -fall -td ../../java -pkgTranslate example1 edu.sr.generated.example1 -pkgTranslate example2 edu.sr.generated.example2 sr.idl
