@@ -28,7 +28,7 @@ module board {
         };
 
         interface User {
-            readonly attribute UserId UserId;
+            readonly attribute UserId userId;
             readonly attribute string name;
 
             void onCommandFail(out model::command::Command command);
