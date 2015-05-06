@@ -31,9 +31,8 @@ module board {
             readonly attribute UserId UserId;
             readonly attribute string name;
 
-            void onRoomReady(out Board board);
-            void onCommandFailed(out model::command::Command command);
-            void onCommandExecuted(out model::command::Command command);
+            void onCommandFail(out model::command::Command command);
+            void onCommandSuccess(out model::command::Command command);
             void onFigureChange(out model::figure::FigureId figureId);
         };
 
