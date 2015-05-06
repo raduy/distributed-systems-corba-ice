@@ -1,3 +1,4 @@
+//Author: Lukasz Raduj
 #ifndef __MODEL__
 #define __MODEL__
 #include <Ids.idl>

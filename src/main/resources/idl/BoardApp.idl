@@ -1,3 +1,4 @@
+//Author: Lukasz Raduj
 #include<Model.idl>
 
 module board {
