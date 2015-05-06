@@ -1,0 +1,58 @@
+#ifndef __MODEL__
+#define __MODEL__
+#include <Ids.idl>
+#include <Figures.idl>
+#include <Commands.idl>
+
+module board {
+    module model {
+        module exceptions {
+            exception NoSuchFigureInBoardException {};
+            exception RoomEnteringException {};
+            exception NoSuchUserInThisRoomException {};
+        };
+
+        typedef sequence<model::figure::FigureId> FiguresSequence;
+        interface Board {
+            readonly attribute BoardId boardId;
+            readonly attribute long height;
+            readonly attribute long width;
+
+            FiguresSequence figures();
+
+            model::figure::IFigure getFigureDetails(in model::figure::FigureId figureId)
+                raises (model::exceptions::NoSuchFigureInBoardException);
+
+            boolean acceptCommand(in model::command::Command command);
+        };
+
+        interface User {
+            readonly attribute UserId UserId;
+            readonly attribute string name;
+
+            void onRoomReady(out Board board);
+            void onCommandFailed(out model::command::Command command);
+            void onCommandExecuted(out model::command::Command command);
+            void onFigureChange(out model::figure::FigureId figureId);
+        };
+
+        typedef sequence<UserId> UserIdsSeq;
+        interface Room {
+            readonly attribute RoomId roomId;
+            UserIdsSeq getUsers();
+
+            Board getBoard();
+
+            User getUserDetails(in UserId UserId)
+                raises (model::exceptions::NoSuchUserInThisRoomException);
+
+            void join(in User User)
+                raises (model::exceptions::RoomEnteringException);
+
+            void leave(in UserId UserId)
+                raises (model::exceptions::NoSuchUserInThisRoomException);
+        };
+    };
+};
+
+#endif

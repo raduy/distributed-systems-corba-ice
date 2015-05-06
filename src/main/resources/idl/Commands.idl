@@ -1,0 +1,47 @@
+#ifndef __COMMANDS__
+#define __COMMANDS__
+#include<Ids.idl>
+#include<Figures.idl>
+
+module board {
+    module model {
+        module exceptions {
+            exception CommandExecutionException {};
+        };
+
+        module command {
+            interface Command {
+                readonly attribute UserId principal;
+
+                void apply(in model::BoardId boardId)
+                    raises (exceptions::CommandExecutionException);
+            };
+
+            interface DrawFigureCommand : Command {
+                readonly attribute model::figure::IFigure figure;
+            };
+
+            interface EraseFigureCommand : Command {
+                readonly attribute model::figure::FigureId figureId;
+            };
+
+            typedef sequence<model::figure::Point, 2> TranslationVector;
+            interface TranslateFigureCommand : Command {
+                readonly attribute model::figure::FigureId figureId;
+                TranslationVector getTranslation();
+            };
+
+            interface RotateFigureCommand : Command {
+                readonly attribute model::figure::FigureId figureId;
+                readonly attribute double angleDelta;
+            };
+
+            interface ScaleFigureCommand : Command {
+                readonly attribute model::figure::FigureId figureId;
+                readonly attribute double scaleFactor;
+            };
+        };
+    };
+};
+
+#endif

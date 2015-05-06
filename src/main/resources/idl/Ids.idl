@@ -1,0 +1,11 @@
+#ifndef __IDS__
+#define __IDS__
+
+module board {
+    module model {
+        typedef string BoardId;
+        typedef string UserId;
+        typedef string RoomId;
+    };
+};
+#endif

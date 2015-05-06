@@ -1,1 +1,3 @@
 idlj -fall -td ../../java -pkgTranslate example1 edu.sr.generated.example1 -pkgTranslate example2 edu.sr.generated.example2 sr.idl
+
+idlj -fall -td ../../java -pkgTranslate board edu.sr.board.generated BoardApp.idl

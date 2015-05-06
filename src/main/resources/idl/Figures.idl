@@ -1,0 +1,46 @@
+#ifndef __FIGURES__
+#define __FIGURES__
+
+module board {
+    module model {
+
+        module figure {
+            enum FigureType {ELLIPSE, RECTANGLE, LINE, CURSOR};
+
+            struct Point {
+                long x;
+                long y;
+            };
+
+            typedef string FigureId;
+            interface IFigure {
+                readonly attribute FigureType figureType;
+                readonly attribute FigureId figureId;
+
+                Point getCharacteristicPoint();
+            };
+
+            interface IRotateable {
+                double getRotationAngle();
+            };
+
+            interface IRectangle : IFigure, IRotateable {
+                double getWidth();
+                double getHeight();
+            };
+
+            interface ILine : IFigure, IRotateable {
+                double getLength();
+            };
+
+            interface ICircle : IFigure {
+                double getRadius();
+            };
+
+            interface ICursor : IFigure {
+            };
+        };
+    };
+};
+
+#endif

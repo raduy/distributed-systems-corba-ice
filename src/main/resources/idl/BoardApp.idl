@@ -1,0 +1,37 @@
+#include<Model.idl>
+
+module board {
+    module app {
+        module exceptions {
+            exception UserAlreadyRegisteredException {};
+            exception NoSuchUserRegisteredException {};
+            exception NoSuchRoomException {};
+            exception RoomAlreadyExistsException {};
+        };
+
+        typedef sequence<model::UserId> userIdsSeq;
+        interface UserRegistry {
+            userIdsSeq getAllUsers();
+
+            model::User getUserDetails(in model::UserId userId)
+                raises(exceptions::NoSuchUserRegisteredException);
+
+            model::UserId registerUser(in string name)
+                raises (exceptions::UserAlreadyRegisteredException);
+
+            void unregisterUser(in model::UserId UserId)
+                raises (exceptions::NoSuchUserRegisteredException);
+        };
+
+        typedef sequence<model::RoomId> RoomIdsSeq;
+        interface BoardApp {
+            model::RoomId createNewRoom(in string name, in model::UserId ownerId)
+                raises (exceptions::RoomAlreadyExistsException);
+
+            RoomIdsSeq getAllRooms();
+
+            model::Room getRoomDetails(in model::RoomId roomId)
+                raises (exceptions::NoSuchRoomException);
+        };
+    };
+};
